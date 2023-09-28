@@ -1,0 +1,28 @@
+def caesar_cipher(text, key):
+    result = ""
+    for char in text:
+        if 'A' <= char <= 'Z':
+            shifted = ord(char) + key
+            if shifted > ord('Z'):
+                shifted -= 26
+            result += chr(shifted)
+        else:
+            result += char
+    return result
+
+def main():
+    input_text = input("Enter the text to encrypt: ").upper()
+    
+    if input_text.isalpha():  # Check if input contains only letters
+        key = int(input("Enter the key (1-25): "))
+
+        if 1 <= key <= 25:
+            encrypted_text = caesar_cipher(input_text, key)
+            print("Encrypted text:", encrypted_text)
+        else:
+            print("Key must be between 1 and 25.")
+    else:
+        print("Only letters are allowed in the input.")
+
+if __name__ == "__main__":
+    main()
