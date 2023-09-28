@@ -1,1 +1,50 @@
+def caesar_cipher(text, key, custom_alphabet):
+    result = ""
+    for char in text:
+        if 'A' <= char <= 'Z':
+            char_index = custom_alphabet.index(char)
+            shifted_index = (char_index + key) % 26
+            shifted_char = custom_alphabet[shifted_index]
+            result += shifted_char
+        else:
+            result += char
+    return result
+
+def generate_custom_alphabet(m):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    custom_alphabet = m + "".join(sorted(set(alphabet) - set(m)))
+    return custom_alphabet
+
+def display_custom_alphabet(m):
+    custom_alphabet = generate_custom_alphabet(m)
+    print("New Alphabet: " + custom_alphabet)
+
+def main():
+    input_text = input("Enter the text to encrypt: ").upper()
+    
+    if input_text.isalpha():
+        key = int(input("Enter the key (1-25): "))
+        
+        if 1 <= key <= 25:
+            while True:
+                m = input("Enter the key 'm': ").upper()
+                if len(m) >= 7:
+                    break
+                else:
+                    print("Key 'm' must have a length greater than or equal to 7.")
+            
+            display_custom_alphabet(m)  # Display the custom alphabet
+            
+            # Generate the custom alphabet using 'm' key
+            custom_alphabet = generate_custom_alphabet(m)
+            
+            encrypted_text = caesar_cipher(input_text, key, custom_alphabet)
+            print("Encrypted text:", encrypted_text)
+        else:
+            print("Key must be between 1 and 25.")
+    else:
+        print("Only uppercase letters are allowed in the input.")
+
+if __name__ == "__main__":
+    main()
 
